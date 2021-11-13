@@ -9,6 +9,7 @@ namespace CommonSolution.DTO.Clientes
     public class Direccion
     {
         public long Id { get; set; }
+        public string Nombre { get; set; }
         public long Latitud { get; set; }
         public long Longitud { get; set; }
     }

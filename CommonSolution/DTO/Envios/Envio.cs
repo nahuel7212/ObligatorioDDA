@@ -21,11 +21,12 @@ namespace CommonSolution.DTO.Envios
         public double PesoTotal { get; set; }
         public DateTime FechaAgregado { get; set; }
         public string DescripcionContenido { get; set; }
-        public Funcionario Funcionario { get; set; }
+        public Funcionario Responsable { get; set; }
         public Cliente Remitente { get; set; }
         public Cliente Destinatario { get; set; }
-        public Zona Zona { get; set; }
-        public Camion Camion { get; set; }
+        public Zona ZonaEnvio { get; set; }
+        public Camion CamionEnvio { get; set; }
+        public Direccion DireccionEnvio { get; set; }
 
         public double CalcularPrecioTotal()
         {

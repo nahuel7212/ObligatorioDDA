@@ -52,9 +52,12 @@
     <Compile Include="DTO\Clientes\Persona.cs" />
     <Compile Include="DTO\Envios\Envio.cs" />
     <Compile Include="DTO\Funcionarios\Funcionario.cs" />
+    <Compile Include="DTO\Precios\PrecioFijo.cs" />
+    <Compile Include="DTO\Precios\PrecioGeneral.cs" />
+    <Compile Include="DTO\Precios\PrecioPorKGDistancia.cs" />
+    <Compile Include="DTO\Precios\PrecioPorPeso.cs" />
     <Compile Include="ENUM\EstadoCamion.cs" />
     <Compile Include="ENUM\EstadoEnvio.cs" />
-    <Compile Include="Interface\PrecioGeneral\IPrecioGeneral.cs" />
     <Compile Include="Interface\TipoPago\ICredito.cs" />
     <Compile Include="Interface\TipoPago\IDebito.cs" />
     <Compile Include="Interface\TipoPago\IEfectivo.cs" />
