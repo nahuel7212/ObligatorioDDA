@@ -9,8 +9,6 @@ namespace CommonSolution.DTO.Clientes
 {
     public class Cliente
     {
-        public long Id { get; set; }
-        public Direccion Direccion { get; set; }
-        public PrecioGeneral TipoPrecio { get; set; }
+        public long IdCliente { get; set; }
     }
 }

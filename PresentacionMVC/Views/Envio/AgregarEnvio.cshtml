@@ -1,0 +1,122 @@
+﻿@model CommonSolution.DTO.Envios.EnvioDataHolder
+
+@{
+    ViewBag.Title = "Agregar envio";
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvMdxTAgkFIhI8MqCR8bE_CRHpNABl0L0&sensor=false"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvMdxTAgkFIhI8MqCR8bE_CRHpNABl0L0&callback=initMap&libraries=&v=weekly" async></script>
+}
+
+<h2>Agregar envio</h2>
+<div>
+    @Html.ActionLink("Ver listado de envios", "DevolverLista")
+</div>
+
+@using (Html.BeginForm("AgregarNuevoEnvio", "Envio"))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    <br />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.RemitenteId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RemitenteId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RemitenteId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClienteDestinatarioId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ClienteDestinatarioId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ClienteDestinatarioId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PesoTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PesoTotal, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PesoTotal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DescripcionContenido, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DescripcionContenido, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DescripcionContenido, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div style="margin-left: 600px; margin-top: -240px; position:absolute;">
+        <div class="form-group" style="margin-left: 70px;">
+            @Html.LabelFor(model => model.NombreZona, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreZona, new { id = "nombreZona" })
+                <div style="margin-left:150px">
+                    @Html.ValidationMessageFor(model => model.NombreZona, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div id="dvMap" style="width: 500px; height: 500px; outline: 2px solid black;">
+        </div>
+
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.Latitud, new { id = "campoLatitud" })
+        </div>
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.Longitud, new { id = "campoLongitud" })
+        </div>
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.DatoZona, new { id = "latitudZonaAdentro", @class = "form-control" })
+            <div style="margin-left:150px">
+                @Html.ValidationMessageFor(model => model.DatoZona, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <div style="margin-left: 80px;">
+        <b>
+            <div style="margin-left: 120px;">
+                Datos de pago
+            </div>
+            <br />
+            Debito
+            @Html.RadioButtonFor(model => model.TipoPago, "Debito")
+            &nbsp Credito
+            @Html.RadioButtonFor(model => model.TipoPago, "Credito")
+            &nbsp Efectivo
+            @Html.RadioButtonFor(model => model.TipoPago, "Efectivo")
+            &nbsp Mercado pago
+            @Html.RadioButtonFor(model => model.TipoPago, "Mercado pago")
+        </b>
+    </div>
+
+    <br /><br />
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <input type="submit" value="Pagar" class="btn btn-default" />
+        </div>
+    </div>
+    <div style="margin-left: 170px;">
+        <strong> @Html.ValidationMessage("ErrorGeneral", new { @class = "text-danger" }) </strong>
+    </div>
+    <div style="margin-left: 170px; padding-bottom: 100px;">
+        <strong> @Html.ValidationMessage("SuccessGeneral", new { @class = "text-success" }) </strong>
+    </div>
+
+    <br /><br /><br />
+
+</div>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+    @Scripts.Render("~/bundles/mapaEnvios")
+}

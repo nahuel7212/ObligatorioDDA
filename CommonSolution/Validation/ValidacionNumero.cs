@@ -39,5 +39,7 @@ namespace CommonSolution.Validation
 
             return null;
         }
+
+        //AGREGAR UN TRY PARSE OUT
     }
 }

@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script> <!-- Icons -->
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+
+                <div class="dropdown" style="margin-top: 10px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Personas
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Usuarios", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Ver listado", "Index", "Home")</li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="margin-top: -34px; margin-left: 100px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Zonas
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Nuevo reclamo", "AgregarReclamo", "Reclamos")</li>
+                        <li>@Html.ActionLink("Ver mis reclamos", "ListadoMisReclamos", "Reclamos")</li>
+                        <li>@Html.ActionLink("Ver todos los reclamos", "ListadoReclamo", "Reclamos")</li>
+                        <li>@Html.ActionLink("Ver todos los reclamos en un mapa", "VerReclamosMapa", "Reclamos")</li>
+                        <hr />
+                        <li>@Html.ActionLink("Nuevo tipo", "AgregarTipoReclamo", "Reclamos")</li>
+                        <li>@Html.ActionLink("Ver listado tipo de reclamo", "ListadoTipoReclamo", "Reclamos")</li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="margin-top: -34px; margin-left: 180px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Camiones
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Nueva zona", "AgregarZona", "Zonas")</li>
+                        <li>@Html.ActionLink("Ver listado zonas", "ListadoZonas", "Zonas")</li>
+                        <li>@Html.ActionLink("Ver zonas en mapa", "VerZonasMapa", "Zonas")</li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="margin-top: -34px; margin-left: 285px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Envios
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Nueva envio", "AgregarEnvio", "Envio")</li>
+                        <li>@Html.ActionLink("Ver listado cuadrillas", "ListadoCuadrilla", "Cuadrilla")</li>
+                    </ul>
+                </div>
+                <div class="dropdown" style="margin-top: -34px; margin-left: 370px;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Reportes
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Nueva cuadrilla", "AgregarCuadrilla", "Cuadrilla")</li>
+                        <li>@Html.ActionLink("Ver listado cuadrillas", "ListadoCuadrilla", "Cuadrilla")</li>
+                    </ul>
+                </div>
+
+
+
+                <div style="margin-top: -40px; margin-left: 900px; position: absolute;">
+                    <span class="iconify" style="color: white; width: 50px; height: 45px; cursor: pointer;" data-icon="ri:logout-box-line" data-inline="false" onclick="location.href='@Url.Action("Logout", "Login")'"></span>
+                </div>
+
+                <div style="margin-top: -40px; margin-left: 820px; position: absolute;">
+                    <span class="iconify" style="color: white; width: 50px; height: 45px; cursor: pointer;" data-icon="whh:house" data-inline="false" onclick="location.href='@Url.Action("Index", "Home")'"></span>
+                </div>
+
+                <div id="digital_clock" style="color:whitesmoke; float: right; margin-top: -30px;">00:00:00</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Clock")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

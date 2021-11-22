@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CommonSolution.DTO.Precios;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,5 +16,7 @@ namespace CommonSolution.DTO.Clientes
         public string Apellido { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }
+        public Direccion Direccion { get; set; }
+        public PrecioGeneral TipoPrecio { get; set; }
     }
 }

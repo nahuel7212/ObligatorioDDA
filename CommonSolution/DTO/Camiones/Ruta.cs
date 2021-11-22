@@ -9,7 +9,7 @@ namespace CommonSolution.DTO.Camiones
 {
     public class Ruta
     {
-        public long Id { get; set; }
+        public long IdRuta { get; set; }
         public Direccion Direccion { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace CommonSolution.DTO.Envios
 {
     public class Envio
     {
-        public long Id { get; set; }
+        public long IdEnvio { get; set; }
         public ITipoPago TipoPago { get; set; }
         public string NumeroTracking { get; set; }
         public EstadoEnvio Estado { get; set; }
