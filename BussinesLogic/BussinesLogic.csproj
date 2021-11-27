@@ -41,10 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LControllers\LEnvioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="LControllers\" />
+    <ProjectReference Include="..\CommonSolution\CommonSolution.csproj">
+      <Project>{98A8E5DF-5E29-4F1D-8136-894FDF2A5FE9}</Project>
+      <Name>CommonSolution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{BE859D22-9EEA-43F4-B933-26377F05D09F}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

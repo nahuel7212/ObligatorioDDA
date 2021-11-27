@@ -14,11 +14,11 @@ namespace CommonSolution.DTO.Envios
     {
         [DisplayName("Cliente remitente (Rut/Documento): ")]
         [Required(ErrorMessage = "Es necesario que indique el remitente")]
-        public long RemitenteId { get; set; }
+        public string RemitenteId { get; set; }
 
         [DisplayName("Cliente destinatario (Rut/Documento): ")]
         [Required(ErrorMessage = "Es necesario que indique el destinatario")]
-        public long ClienteDestinatarioId { get; set; }
+        public string ClienteDestinatarioId { get; set; }
 
         [DisplayName("Peso total (en kilos): ")]
         [Required(ErrorMessage = "Es necesario indique el peso total")]
@@ -31,8 +31,8 @@ namespace CommonSolution.DTO.Envios
         public string FuncionarioResponsable { get; set; }
 
         [DisplayName("Nombre: ")]
-        [StringLength(255, ErrorMessage = "Nombre de zona no puede superar {1} caracteres")]
-        public string NombreZona { get; set; }
+        [StringLength(255, ErrorMessage = "Nombre de direccion no puede superar {1} caracteres")]
+        public string NombreDireccion { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
         public string DatoZona { get; set; }

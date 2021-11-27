@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonSolution.Interface.Precio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,16 @@ using System.Threading.Tasks;
 
 namespace CommonSolution.DTO.Precios
 {
-    public abstract class PrecioPorPeso: PrecioGeneral
+    public class PrecioPorPeso: IPrecioGeneral
     {
-        public long IdPrecioPeso { get; set; }
+        public string Nombre { get; set; }
+        public double ValorPrestablecido { get; set; }
         public double PesoKG { get; set; }
 
 
-        public override double PrecioTotal()
+        public double PrecioTotal(double kilogramos, double kilometros)
         {
-            return 0;
+            return this.ValorPrestablecido * kilogramos;
         }
     }
 }

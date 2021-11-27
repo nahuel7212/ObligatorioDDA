@@ -1,0 +1,1080 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DAKObligatorioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_Camion">
+          <Key>
+            <PropertyRef Name="Matricula" />
+          </Key>
+          <Property Name="Matricula" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Capacidad" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDRuta" Type="bigint" />
+        </EntityType>
+        <EntityType Name="T_Camion_Zona">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDZona" Type="bigint" Nullable="false" />
+          <Property Name="IDCamion" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Cliente">
+          <Key>
+            <PropertyRef Name="IDCliente" />
+          </Key>
+          <Property Name="IDCliente" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEmpresa" Type="varchar" MaxLength="255" />
+          <Property Name="IDPersona" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="T_Direccion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Latitud" Type="varchar" MaxLength="255" />
+          <Property Name="Longitud" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="T_Empresa">
+          <Key>
+            <PropertyRef Name="Rut" />
+          </Key>
+          <Property Name="Rut" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="GrupoPrecio" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDDireccion" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Envio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NroTracking" Type="int" Nullable="false" />
+          <Property Name="PrecioTotal" Type="float" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDFuncionario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDCliente" Type="bigint" Nullable="false" />
+          <Property Name="IDTipoPago" Type="bigint" Nullable="false" />
+          <Property Name="IDCamion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDZona" Type="bigint" Nullable="false" />
+          <Property Name="IDDireccion" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Funcionario">
+          <Key>
+            <PropertyRef Name="Documento" />
+          </Key>
+          <Property Name="Documento" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Contraseña" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_GrupoPrecio">
+          <Key>
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="Estado" Type="varchar" MaxLength="255" />
+          <Property Name="ValorPrestablecio" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Persona">
+          <Key>
+            <PropertyRef Name="Documento" />
+          </Key>
+          <Property Name="Documento" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="GrupoPrecio" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDDireccion" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Puntos_Zona">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitud" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Longitud" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Ruta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Ruta_Direcciones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDRuta" Type="bigint" Nullable="false" />
+          <Property Name="IDDireccion" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_TipoPago">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="T_Zona">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__T_Camion___IDCam__5812160E">
+          <End Role="T_Camion" Type="Self.T_Camion" Multiplicity="1" />
+          <End Role="T_Camion_Zona" Type="Self.T_Camion_Zona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Camion">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="T_Camion_Zona">
+              <PropertyRef Name="IDCamion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Camion___IDZon__571DF1D5">
+          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="1" />
+          <End Role="T_Camion_Zona" Type="Self.T_Camion_Zona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Camion_Zona">
+              <PropertyRef Name="IDZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Camion__IDRuta__5441852A">
+          <End Role="T_Ruta" Type="Self.T_Ruta" Multiplicity="0..1" />
+          <End Role="T_Camion" Type="Self.T_Camion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Ruta">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Camion">
+              <PropertyRef Name="IDRuta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Cliente__IDEmp__4222D4EF">
+          <End Role="T_Empresa" Type="Self.T_Empresa" Multiplicity="0..1" />
+          <End Role="T_Cliente" Type="Self.T_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Empresa">
+              <PropertyRef Name="Rut" />
+            </Principal>
+            <Dependent Role="T_Cliente">
+              <PropertyRef Name="IDEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Cliente__IDPer__4316F928">
+          <End Role="T_Persona" Type="Self.T_Persona" Multiplicity="0..1" />
+          <End Role="T_Cliente" Type="Self.T_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Persona">
+              <PropertyRef Name="Documento" />
+            </Principal>
+            <Dependent Role="T_Cliente">
+              <PropertyRef Name="IDPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Empresa__IDDir__3B75D760">
+          <End Role="T_Direccion" Type="Self.T_Direccion" Multiplicity="1" />
+          <End Role="T_Empresa" Type="Self.T_Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Empresa">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDCamio__5DCAEF64">
+          <End Role="T_Camion" Type="Self.T_Camion" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Camion">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDCamion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDClien__5BE2A6F2">
+          <End Role="T_Cliente" Type="Self.T_Cliente" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Cliente">
+              <PropertyRef Name="IDCliente" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDDirec__5FB337D6">
+          <End Role="T_Direccion" Type="Self.T_Direccion" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDFunci__5AEE82B9">
+          <End Role="T_Funcionario" Type="Self.T_Funcionario" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Funcionario">
+              <PropertyRef Name="Documento" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDTipoP__5CD6CB2B">
+          <End Role="T_TipoPago" Type="Self.T_TipoPago" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TipoPago">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDZona__5EBF139D">
+          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Persona__IDDir__3F466844">
+          <End Role="T_Direccion" Type="Self.T_Direccion" Multiplicity="1" />
+          <End Role="T_Persona" Type="Self.T_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Persona">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Puntos_Zon__ID__4BAC3F29">
+          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="1" />
+          <End Role="T_Puntos_Zona" Type="Self.T_Puntos_Zona" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Puntos_Zona">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Ruta_Di__IDDir__5165187F">
+          <End Role="T_Direccion" Type="Self.T_Direccion" Multiplicity="1" />
+          <End Role="T_Ruta_Direcciones" Type="Self.T_Ruta_Direcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Ruta_Direcciones">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Ruta_Di__IDRut__5070F446">
+          <End Role="T_Ruta" Type="Self.T_Ruta" Multiplicity="1" />
+          <End Role="T_Ruta_Direcciones" Type="Self.T_Ruta_Direcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Ruta">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Ruta_Direcciones">
+              <PropertyRef Name="IDRuta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Empresa_T_GrupoPrecio">
+          <End Role="T_GrupoPrecio" Type="Self.T_GrupoPrecio" Multiplicity="1" />
+          <End Role="T_Empresa" Type="Self.T_Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_GrupoPrecio">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="T_Empresa">
+              <PropertyRef Name="GrupoPrecio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Persona_T_GrupoPrecio">
+          <End Role="T_GrupoPrecio" Type="Self.T_GrupoPrecio" Multiplicity="1" />
+          <End Role="T_Persona" Type="Self.T_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_GrupoPrecio">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="T_Persona">
+              <PropertyRef Name="Nombre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DAKObligatorioModelStoreContainer">
+          <EntitySet Name="T_Camion" EntityType="Self.T_Camion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Camion_Zona" EntityType="Self.T_Camion_Zona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Cliente" EntityType="Self.T_Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Direccion" EntityType="Self.T_Direccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Empresa" EntityType="Self.T_Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Envio" EntityType="Self.T_Envio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Funcionario" EntityType="Self.T_Funcionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GrupoPrecio" EntityType="Self.T_GrupoPrecio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Persona" EntityType="Self.T_Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Puntos_Zona" EntityType="Self.T_Puntos_Zona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Ruta" EntityType="Self.T_Ruta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Ruta_Direcciones" EntityType="Self.T_Ruta_Direcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_TipoPago" EntityType="Self.T_TipoPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Zona" EntityType="Self.T_Zona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__T_Camion___IDCam__5812160E" Association="Self.FK__T_Camion___IDCam__5812160E">
+            <End Role="T_Camion" EntitySet="T_Camion" />
+            <End Role="T_Camion_Zona" EntitySet="T_Camion_Zona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Camion___IDZon__571DF1D5" Association="Self.FK__T_Camion___IDZon__571DF1D5">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Camion_Zona" EntitySet="T_Camion_Zona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Camion__IDRuta__5441852A" Association="Self.FK__T_Camion__IDRuta__5441852A">
+            <End Role="T_Ruta" EntitySet="T_Ruta" />
+            <End Role="T_Camion" EntitySet="T_Camion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Cliente__IDEmp__4222D4EF" Association="Self.FK__T_Cliente__IDEmp__4222D4EF">
+            <End Role="T_Empresa" EntitySet="T_Empresa" />
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Cliente__IDPer__4316F928" Association="Self.FK__T_Cliente__IDPer__4316F928">
+            <End Role="T_Persona" EntitySet="T_Persona" />
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Empresa__IDDir__3B75D760" Association="Self.FK__T_Empresa__IDDir__3B75D760">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Empresa" EntitySet="T_Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDCamio__5DCAEF64" Association="Self.FK__T_Envio__IDCamio__5DCAEF64">
+            <End Role="T_Camion" EntitySet="T_Camion" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDClien__5BE2A6F2" Association="Self.FK__T_Envio__IDClien__5BE2A6F2">
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDDirec__5FB337D6" Association="Self.FK__T_Envio__IDDirec__5FB337D6">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDFunci__5AEE82B9" Association="Self.FK__T_Envio__IDFunci__5AEE82B9">
+            <End Role="T_Funcionario" EntitySet="T_Funcionario" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDTipoP__5CD6CB2B" Association="Self.FK__T_Envio__IDTipoP__5CD6CB2B">
+            <End Role="T_TipoPago" EntitySet="T_TipoPago" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDZona__5EBF139D" Association="Self.FK__T_Envio__IDZona__5EBF139D">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Persona__IDDir__3F466844" Association="Self.FK__T_Persona__IDDir__3F466844">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Persona" EntitySet="T_Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Puntos_Zon__ID__4BAC3F29" Association="Self.FK__T_Puntos_Zon__ID__4BAC3F29">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Puntos_Zona" EntitySet="T_Puntos_Zona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Ruta_Di__IDDir__5165187F" Association="Self.FK__T_Ruta_Di__IDDir__5165187F">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Ruta_Direcciones" EntitySet="T_Ruta_Direcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Ruta_Di__IDRut__5070F446" Association="Self.FK__T_Ruta_Di__IDRut__5070F446">
+            <End Role="T_Ruta" EntitySet="T_Ruta" />
+            <End Role="T_Ruta_Direcciones" EntitySet="T_Ruta_Direcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Empresa_T_GrupoPrecio" Association="Self.FK_T_Empresa_T_GrupoPrecio">
+            <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
+            <End Role="T_Empresa" EntitySet="T_Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Persona_T_GrupoPrecio" Association="Self.FK_T_Persona_T_GrupoPrecio">
+            <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
+            <End Role="T_Persona" EntitySet="T_Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DAKObligatorioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DAKObligatorioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_Camion" EntityType="DAKObligatorioModel.T_Camion" />
+          <EntitySet Name="T_Camion_Zona" EntityType="DAKObligatorioModel.T_Camion_Zona" />
+          <EntitySet Name="T_Cliente" EntityType="DAKObligatorioModel.T_Cliente" />
+          <EntitySet Name="T_Direccion" EntityType="DAKObligatorioModel.T_Direccion" />
+          <EntitySet Name="T_Empresa" EntityType="DAKObligatorioModel.T_Empresa" />
+          <EntitySet Name="T_Envio" EntityType="DAKObligatorioModel.T_Envio" />
+          <EntitySet Name="T_Funcionario" EntityType="DAKObligatorioModel.T_Funcionario" />
+          <EntitySet Name="T_GrupoPrecio" EntityType="DAKObligatorioModel.T_GrupoPrecio" />
+          <EntitySet Name="T_Persona" EntityType="DAKObligatorioModel.T_Persona" />
+          <EntitySet Name="T_Puntos_Zona" EntityType="DAKObligatorioModel.T_Puntos_Zona" />
+          <EntitySet Name="T_Ruta" EntityType="DAKObligatorioModel.T_Ruta" />
+          <EntitySet Name="T_Ruta_Direcciones" EntityType="DAKObligatorioModel.T_Ruta_Direcciones" />
+          <EntitySet Name="T_TipoPago" EntityType="DAKObligatorioModel.T_TipoPago" />
+          <EntitySet Name="T_Zona" EntityType="DAKObligatorioModel.T_Zona" />
+          <AssociationSet Name="FK__T_Camion___IDCam__5812160E" Association="DAKObligatorioModel.FK__T_Camion___IDCam__5812160E">
+            <End Role="T_Camion" EntitySet="T_Camion" />
+            <End Role="T_Camion_Zona" EntitySet="T_Camion_Zona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Camion__IDRuta__5441852A" Association="DAKObligatorioModel.FK__T_Camion__IDRuta__5441852A">
+            <End Role="T_Ruta" EntitySet="T_Ruta" />
+            <End Role="T_Camion" EntitySet="T_Camion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDCamio__5DCAEF64" Association="DAKObligatorioModel.FK__T_Envio__IDCamio__5DCAEF64">
+            <End Role="T_Camion" EntitySet="T_Camion" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Camion___IDZon__571DF1D5" Association="DAKObligatorioModel.FK__T_Camion___IDZon__571DF1D5">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Camion_Zona" EntitySet="T_Camion_Zona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Cliente__IDEmp__4222D4EF" Association="DAKObligatorioModel.FK__T_Cliente__IDEmp__4222D4EF">
+            <End Role="T_Empresa" EntitySet="T_Empresa" />
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Cliente__IDPer__4316F928" Association="DAKObligatorioModel.FK__T_Cliente__IDPer__4316F928">
+            <End Role="T_Persona" EntitySet="T_Persona" />
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDClien__5BE2A6F2" Association="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2">
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Empresa__IDDir__3B75D760" Association="DAKObligatorioModel.FK__T_Empresa__IDDir__3B75D760">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Empresa" EntitySet="T_Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDDirec__5FB337D6" Association="DAKObligatorioModel.FK__T_Envio__IDDirec__5FB337D6">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Persona__IDDir__3F466844" Association="DAKObligatorioModel.FK__T_Persona__IDDir__3F466844">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Persona" EntitySet="T_Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Ruta_Di__IDDir__5165187F" Association="DAKObligatorioModel.FK__T_Ruta_Di__IDDir__5165187F">
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+            <End Role="T_Ruta_Direcciones" EntitySet="T_Ruta_Direcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Empresa_T_GrupoPrecio" Association="DAKObligatorioModel.FK_T_Empresa_T_GrupoPrecio">
+            <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
+            <End Role="T_Empresa" EntitySet="T_Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDFunci__5AEE82B9" Association="DAKObligatorioModel.FK__T_Envio__IDFunci__5AEE82B9">
+            <End Role="T_Funcionario" EntitySet="T_Funcionario" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDTipoP__5CD6CB2B" Association="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B">
+            <End Role="T_TipoPago" EntitySet="T_TipoPago" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Envio__IDZona__5EBF139D" Association="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Persona_T_GrupoPrecio" Association="DAKObligatorioModel.FK_T_Persona_T_GrupoPrecio">
+            <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
+            <End Role="T_Persona" EntitySet="T_Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Puntos_Zon__ID__4BAC3F29" Association="DAKObligatorioModel.FK__T_Puntos_Zon__ID__4BAC3F29">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Puntos_Zona" EntitySet="T_Puntos_Zona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_Ruta_Di__IDRut__5070F446" Association="DAKObligatorioModel.FK__T_Ruta_Di__IDRut__5070F446">
+            <End Role="T_Ruta" EntitySet="T_Ruta" />
+            <End Role="T_Ruta_Direcciones" EntitySet="T_Ruta_Direcciones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="T_Camion">
+          <Key>
+            <PropertyRef Name="Matricula" />
+          </Key>
+          <Property Name="Matricula" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Capacidad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDRuta" Type="Int64" />
+          <NavigationProperty Name="T_Camion_Zona" Relationship="DAKObligatorioModel.FK__T_Camion___IDCam__5812160E" FromRole="T_Camion" ToRole="T_Camion_Zona" />
+          <NavigationProperty Name="T_Ruta" Relationship="DAKObligatorioModel.FK__T_Camion__IDRuta__5441852A" FromRole="T_Camion" ToRole="T_Ruta" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDCamio__5DCAEF64" FromRole="T_Camion" ToRole="T_Envio" />
+        </EntityType>
+        <EntityType Name="T_Camion_Zona">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDZona" Type="Int64" Nullable="false" />
+          <Property Name="IDCamion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Camion" Relationship="DAKObligatorioModel.FK__T_Camion___IDCam__5812160E" FromRole="T_Camion_Zona" ToRole="T_Camion" />
+          <NavigationProperty Name="T_Zona" Relationship="DAKObligatorioModel.FK__T_Camion___IDZon__571DF1D5" FromRole="T_Camion_Zona" ToRole="T_Zona" />
+        </EntityType>
+        <EntityType Name="T_Cliente">
+          <Key>
+            <PropertyRef Name="IDCliente" />
+          </Key>
+          <Property Name="IDCliente" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEmpresa" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDPersona" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Empresa" Relationship="DAKObligatorioModel.FK__T_Cliente__IDEmp__4222D4EF" FromRole="T_Cliente" ToRole="T_Empresa" />
+          <NavigationProperty Name="T_Persona" Relationship="DAKObligatorioModel.FK__T_Cliente__IDPer__4316F928" FromRole="T_Cliente" ToRole="T_Persona" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2" FromRole="T_Cliente" ToRole="T_Envio" />
+        </EntityType>
+        <EntityType Name="T_Direccion">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Latitud" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Longitud" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Empresa" Relationship="DAKObligatorioModel.FK__T_Empresa__IDDir__3B75D760" FromRole="T_Direccion" ToRole="T_Empresa" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDDirec__5FB337D6" FromRole="T_Direccion" ToRole="T_Envio" />
+          <NavigationProperty Name="T_Persona" Relationship="DAKObligatorioModel.FK__T_Persona__IDDir__3F466844" FromRole="T_Direccion" ToRole="T_Persona" />
+          <NavigationProperty Name="T_Ruta_Direcciones" Relationship="DAKObligatorioModel.FK__T_Ruta_Di__IDDir__5165187F" FromRole="T_Direccion" ToRole="T_Ruta_Direcciones" />
+        </EntityType>
+        <EntityType Name="T_Empresa">
+          <Key>
+            <PropertyRef Name="Rut" />
+          </Key>
+          <Property Name="Rut" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GrupoPrecio" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDDireccion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="T_Cliente" Relationship="DAKObligatorioModel.FK__T_Cliente__IDEmp__4222D4EF" FromRole="T_Empresa" ToRole="T_Cliente" />
+          <NavigationProperty Name="T_Direccion" Relationship="DAKObligatorioModel.FK__T_Empresa__IDDir__3B75D760" FromRole="T_Empresa" ToRole="T_Direccion" />
+          <NavigationProperty Name="T_GrupoPrecio" Relationship="DAKObligatorioModel.FK_T_Empresa_T_GrupoPrecio" FromRole="T_Empresa" ToRole="T_GrupoPrecio" />
+        </EntityType>
+        <EntityType Name="T_Envio">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NroTracking" Type="Int32" Nullable="false" />
+          <Property Name="PrecioTotal" Type="Double" Nullable="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDFuncionario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDCliente" Type="Int64" Nullable="false" />
+          <Property Name="IDTipoPago" Type="Int64" Nullable="false" />
+          <Property Name="IDCamion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDZona" Type="Int64" Nullable="false" />
+          <Property Name="IDDireccion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="T_Camion" Relationship="DAKObligatorioModel.FK__T_Envio__IDCamio__5DCAEF64" FromRole="T_Envio" ToRole="T_Camion" />
+          <NavigationProperty Name="T_Cliente" Relationship="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2" FromRole="T_Envio" ToRole="T_Cliente" />
+          <NavigationProperty Name="T_Direccion" Relationship="DAKObligatorioModel.FK__T_Envio__IDDirec__5FB337D6" FromRole="T_Envio" ToRole="T_Direccion" />
+          <NavigationProperty Name="T_Funcionario" Relationship="DAKObligatorioModel.FK__T_Envio__IDFunci__5AEE82B9" FromRole="T_Envio" ToRole="T_Funcionario" />
+          <NavigationProperty Name="T_TipoPago" Relationship="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B" FromRole="T_Envio" ToRole="T_TipoPago" />
+          <NavigationProperty Name="T_Zona" Relationship="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D" FromRole="T_Envio" ToRole="T_Zona" />
+        </EntityType>
+        <EntityType Name="T_Funcionario">
+          <Key>
+            <PropertyRef Name="Documento" />
+          </Key>
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDFunci__5AEE82B9" FromRole="T_Funcionario" ToRole="T_Envio" />
+        </EntityType>
+        <EntityType Name="T_GrupoPrecio">
+          <Key>
+            <PropertyRef Name="Nombre" />
+          </Key>
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ValorPrestablecio" Type="Double" Nullable="false" />
+          <NavigationProperty Name="T_Empresa" Relationship="DAKObligatorioModel.FK_T_Empresa_T_GrupoPrecio" FromRole="T_GrupoPrecio" ToRole="T_Empresa" />
+          <NavigationProperty Name="T_Persona" Relationship="DAKObligatorioModel.FK_T_Persona_T_GrupoPrecio" FromRole="T_GrupoPrecio" ToRole="T_Persona" />
+        </EntityType>
+        <EntityType Name="T_Persona">
+          <Key>
+            <PropertyRef Name="Documento" />
+          </Key>
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GrupoPrecio" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IDDireccion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="T_Cliente" Relationship="DAKObligatorioModel.FK__T_Cliente__IDPer__4316F928" FromRole="T_Persona" ToRole="T_Cliente" />
+          <NavigationProperty Name="T_Direccion" Relationship="DAKObligatorioModel.FK__T_Persona__IDDir__3F466844" FromRole="T_Persona" ToRole="T_Direccion" />
+          <NavigationProperty Name="T_GrupoPrecio" Relationship="DAKObligatorioModel.FK_T_Persona_T_GrupoPrecio" FromRole="T_Persona" ToRole="T_GrupoPrecio" />
+        </EntityType>
+        <EntityType Name="T_Puntos_Zona">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitud" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Longitud" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Zona" Relationship="DAKObligatorioModel.FK__T_Puntos_Zon__ID__4BAC3F29" FromRole="T_Puntos_Zona" ToRole="T_Zona" />
+        </EntityType>
+        <EntityType Name="T_Ruta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="T_Camion" Relationship="DAKObligatorioModel.FK__T_Camion__IDRuta__5441852A" FromRole="T_Ruta" ToRole="T_Camion" />
+          <NavigationProperty Name="T_Ruta_Direcciones" Relationship="DAKObligatorioModel.FK__T_Ruta_Di__IDRut__5070F446" FromRole="T_Ruta" ToRole="T_Ruta_Direcciones" />
+        </EntityType>
+        <EntityType Name="T_Ruta_Direcciones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDRuta" Type="Int64" Nullable="false" />
+          <Property Name="IDDireccion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="T_Direccion" Relationship="DAKObligatorioModel.FK__T_Ruta_Di__IDDir__5165187F" FromRole="T_Ruta_Direcciones" ToRole="T_Direccion" />
+          <NavigationProperty Name="T_Ruta" Relationship="DAKObligatorioModel.FK__T_Ruta_Di__IDRut__5070F446" FromRole="T_Ruta_Direcciones" ToRole="T_Ruta" />
+        </EntityType>
+        <EntityType Name="T_TipoPago">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B" FromRole="T_TipoPago" ToRole="T_Envio" />
+        </EntityType>
+        <EntityType Name="T_Zona">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="T_Camion_Zona" Relationship="DAKObligatorioModel.FK__T_Camion___IDZon__571DF1D5" FromRole="T_Zona" ToRole="T_Camion_Zona" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D" FromRole="T_Zona" ToRole="T_Envio" />
+          <NavigationProperty Name="T_Puntos_Zona" Relationship="DAKObligatorioModel.FK__T_Puntos_Zon__ID__4BAC3F29" FromRole="T_Zona" ToRole="T_Puntos_Zona" />
+        </EntityType>
+        <Association Name="FK__T_Camion___IDCam__5812160E">
+          <End Type="DAKObligatorioModel.T_Camion" Role="T_Camion" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Camion_Zona" Role="T_Camion_Zona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Camion">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="T_Camion_Zona">
+              <PropertyRef Name="IDCamion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Camion__IDRuta__5441852A">
+          <End Type="DAKObligatorioModel.T_Ruta" Role="T_Ruta" Multiplicity="0..1" />
+          <End Type="DAKObligatorioModel.T_Camion" Role="T_Camion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Ruta">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Camion">
+              <PropertyRef Name="IDRuta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDCamio__5DCAEF64">
+          <End Type="DAKObligatorioModel.T_Camion" Role="T_Camion" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Camion">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDCamion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Camion___IDZon__571DF1D5">
+          <End Type="DAKObligatorioModel.T_Zona" Role="T_Zona" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Camion_Zona" Role="T_Camion_Zona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Camion_Zona">
+              <PropertyRef Name="IDZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Cliente__IDEmp__4222D4EF">
+          <End Type="DAKObligatorioModel.T_Empresa" Role="T_Empresa" Multiplicity="0..1" />
+          <End Type="DAKObligatorioModel.T_Cliente" Role="T_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Empresa">
+              <PropertyRef Name="Rut" />
+            </Principal>
+            <Dependent Role="T_Cliente">
+              <PropertyRef Name="IDEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Cliente__IDPer__4316F928">
+          <End Type="DAKObligatorioModel.T_Persona" Role="T_Persona" Multiplicity="0..1" />
+          <End Type="DAKObligatorioModel.T_Cliente" Role="T_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Persona">
+              <PropertyRef Name="Documento" />
+            </Principal>
+            <Dependent Role="T_Cliente">
+              <PropertyRef Name="IDPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDClien__5BE2A6F2">
+          <End Type="DAKObligatorioModel.T_Cliente" Role="T_Cliente" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Cliente">
+              <PropertyRef Name="IDCliente" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Empresa__IDDir__3B75D760">
+          <End Type="DAKObligatorioModel.T_Direccion" Role="T_Direccion" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Empresa" Role="T_Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Empresa">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDDirec__5FB337D6">
+          <End Type="DAKObligatorioModel.T_Direccion" Role="T_Direccion" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Persona__IDDir__3F466844">
+          <End Type="DAKObligatorioModel.T_Direccion" Role="T_Direccion" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Persona" Role="T_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Persona">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Ruta_Di__IDDir__5165187F">
+          <End Type="DAKObligatorioModel.T_Direccion" Role="T_Direccion" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Ruta_Direcciones" Role="T_Ruta_Direcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Direccion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Ruta_Direcciones">
+              <PropertyRef Name="IDDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Empresa_T_GrupoPrecio">
+          <End Type="DAKObligatorioModel.T_GrupoPrecio" Role="T_GrupoPrecio" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Empresa" Role="T_Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_GrupoPrecio">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="T_Empresa">
+              <PropertyRef Name="GrupoPrecio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDFunci__5AEE82B9">
+          <End Type="DAKObligatorioModel.T_Funcionario" Role="T_Funcionario" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Funcionario">
+              <PropertyRef Name="Documento" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDFuncionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDTipoP__5CD6CB2B">
+          <End Type="DAKObligatorioModel.T_TipoPago" Role="T_TipoPago" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TipoPago">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Envio__IDZona__5EBF139D">
+          <End Type="DAKObligatorioModel.T_Zona" Role="T_Zona" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Persona_T_GrupoPrecio">
+          <End Type="DAKObligatorioModel.T_GrupoPrecio" Role="T_GrupoPrecio" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Persona" Role="T_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_GrupoPrecio">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="T_Persona">
+              <PropertyRef Name="Nombre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Puntos_Zon__ID__4BAC3F29">
+          <End Type="DAKObligatorioModel.T_Zona" Role="T_Zona" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Puntos_Zona" Role="T_Puntos_Zona" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Puntos_Zona">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_Ruta_Di__IDRut__5070F446">
+          <End Type="DAKObligatorioModel.T_Ruta" Role="T_Ruta" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Ruta_Direcciones" Role="T_Ruta_Direcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Ruta">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Ruta_Direcciones">
+              <PropertyRef Name="IDRuta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DAKObligatorioModelStoreContainer" CdmEntityContainer="DAKObligatorioEntities">
+          <EntitySetMapping Name="T_Camion">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Camion">
+              <MappingFragment StoreEntitySet="T_Camion">
+                <ScalarProperty Name="IDRuta" ColumnName="IDRuta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Camion_Zona">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Camion_Zona">
+              <MappingFragment StoreEntitySet="T_Camion_Zona">
+                <ScalarProperty Name="IDCamion" ColumnName="IDCamion" />
+                <ScalarProperty Name="IDZona" ColumnName="IDZona" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Cliente">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Cliente">
+              <MappingFragment StoreEntitySet="T_Cliente">
+                <ScalarProperty Name="IDPersona" ColumnName="IDPersona" />
+                <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
+                <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Direccion">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Direccion">
+              <MappingFragment StoreEntitySet="T_Direccion">
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Empresa">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Empresa">
+              <MappingFragment StoreEntitySet="T_Empresa">
+                <ScalarProperty Name="IDDireccion" ColumnName="IDDireccion" />
+                <ScalarProperty Name="GrupoPrecio" ColumnName="GrupoPrecio" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="Rut" ColumnName="Rut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Envio">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Envio">
+              <MappingFragment StoreEntitySet="T_Envio">
+                <ScalarProperty Name="IDDireccion" ColumnName="IDDireccion" />
+                <ScalarProperty Name="IDZona" ColumnName="IDZona" />
+                <ScalarProperty Name="IDCamion" ColumnName="IDCamion" />
+                <ScalarProperty Name="IDTipoPago" ColumnName="IDTipoPago" />
+                <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
+                <ScalarProperty Name="IDFuncionario" ColumnName="IDFuncionario" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
+                <ScalarProperty Name="NroTracking" ColumnName="NroTracking" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Funcionario">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Funcionario">
+              <MappingFragment StoreEntitySet="T_Funcionario">
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GrupoPrecio">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_GrupoPrecio">
+              <MappingFragment StoreEntitySet="T_GrupoPrecio">
+                <ScalarProperty Name="ValorPrestablecio" ColumnName="ValorPrestablecio" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Persona">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Persona">
+              <MappingFragment StoreEntitySet="T_Persona">
+                <ScalarProperty Name="IDDireccion" ColumnName="IDDireccion" />
+                <ScalarProperty Name="GrupoPrecio" ColumnName="GrupoPrecio" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Puntos_Zona">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Puntos_Zona">
+              <MappingFragment StoreEntitySet="T_Puntos_Zona">
+                <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+                <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Ruta">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Ruta">
+              <MappingFragment StoreEntitySet="T_Ruta">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Ruta_Direcciones">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Ruta_Direcciones">
+              <MappingFragment StoreEntitySet="T_Ruta_Direcciones">
+                <ScalarProperty Name="IDDireccion" ColumnName="IDDireccion" />
+                <ScalarProperty Name="IDRuta" ColumnName="IDRuta" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_TipoPago">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_TipoPago">
+              <MappingFragment StoreEntitySet="T_TipoPago">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Zona">
+            <EntityTypeMapping TypeName="DAKObligatorioModel.T_Zona">
+              <MappingFragment StoreEntitySet="T_Zona">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -15,7 +15,7 @@ namespace CommonSolution.DTO.Envios
     {
         public long IdEnvio { get; set; }
         public ITipoPago TipoPago { get; set; }
-        public string NumeroTracking { get; set; }
+        public long NumeroTracking { get; set; }
         public EstadoEnvio Estado { get; set; }
         public double PrecioTotal { get; set; }
         public double PesoTotal { get; set; }
@@ -27,10 +27,5 @@ namespace CommonSolution.DTO.Envios
         public Zona ZonaEnvio { get; set; }
         public Camion CamionEnvio { get; set; }
         public Direccion DireccionEnvio { get; set; }
-
-        public double CalcularPrecioTotal()
-        {
-            return 0;
-        }
     }
 }
