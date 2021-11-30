@@ -4,36 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e4691f73be2e41d7bfe05e712005b00b" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Camion" Width="1.5" PointX="6.25" PointY="11.75" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Camion_Zona" Width="1.5" PointX="8.5" PointY="8.5" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Cliente" Width="1.5" PointX="5.25" PointY="2.625" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Direccion" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Empresa" Width="1.5" PointX="3" PointY="1.25" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Envio" Width="1.5" PointX="8.5" PointY="3.125" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Funcionario" Width="1.5" PointX="6.25" PointY="14.75" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_GrupoPrecio" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Persona" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Puntos_Zona" Width="1.5" PointX="8.5" PointY="11.75" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Ruta" Width="1.5" PointX="4" PointY="12.125" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Ruta_Direcciones" Width="1.5" PointX="6" PointY="5.625" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_TipoPago" Width="1.5" PointX="6.25" PointY="17.5" />
-        <EntityTypeShape EntityType="DAKObligatorioModel.T_Zona" Width="1.5" PointX="6.25" PointY="9" />
+      <Diagram DiagramId="e4691f73be2e41d7bfe05e712005b00b" Name="Diagram1" ZoomLevel="37">
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Camion" Width="1.5" PointX="3.75" PointY="3.625" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Camion_Zona" Width="1.5" PointX="6" PointY="8.875" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Cliente" Width="1.5" PointX="10.5" PointY="14.75" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Direccion" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Empresa" Width="1.5" PointX="5.25" PointY="16.5" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Envio" Width="1.5" PointX="12.75" PointY="10.625" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Funcionario" Width="1.5" PointX="10.5" PointY="10.75" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_GrupoPrecio" Width="1.5" PointX="6" PointY="5.875" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Persona" Width="1.5" PointX="8.25" PointY="12.5" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Puntos_Zona" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Ruta" Width="1.5" PointX="1.5" PointY="4" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Ruta_Direcciones" Width="1.5" PointX="5.25" PointY="12.875" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_TipoPago" Width="1.5" PointX="10.5" PointY="18.5" />
+        <EntityTypeShape EntityType="DAKObligatorioModel.T_Zona" Width="1.5" PointX="0.75" PointY="8.75" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Camion___IDCam__5812160E" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Camion__IDRuta__5441852A" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Envio__IDCamio__5DCAEF64" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Camion___IDZon__571DF1D5" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Cliente__IDEmp__4222D4EF" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Cliente__IDPer__4316F928" />
-        <AssociationConnector Association="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2" />
+        <AssociationConnector Association="DAKObligatorioModel.FK_T_Envio_T_Cliente" />
+        <AssociationConnector Association="DAKObligatorioModel.FK_T_Envio_T_Cliente1" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Empresa__IDDir__3B75D760" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Envio__IDDirec__5FB337D6" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Persona__IDDir__3F466844" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Ruta_Di__IDDir__5165187F" />
+        <AssociationConnector Association="DAKObligatorioModel.FK_T_Direccion_T_Zona" />
         <AssociationConnector Association="DAKObligatorioModel.FK_T_Empresa_T_GrupoPrecio" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Envio__IDFunci__5AEE82B9" />
-        <AssociationConnector Association="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D" />
+        <AssociationConnector Association="DAKObligatorioModel.FK_T_Envio_T_TipoPago" />
         <AssociationConnector Association="DAKObligatorioModel.FK_T_Persona_T_GrupoPrecio" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Puntos_Zon__ID__4BAC3F29" />
         <AssociationConnector Association="DAKObligatorioModel.FK__T_Ruta_Di__IDRut__5070F446" />

@@ -18,6 +18,7 @@ namespace DataAccess.Model
         public T_Cliente()
         {
             this.T_Envio = new HashSet<T_Envio>();
+            this.T_Envio1 = new HashSet<T_Envio>();
         }
     
         public long IDCliente { get; set; }
@@ -28,5 +29,7 @@ namespace DataAccess.Model
         public virtual T_Persona T_Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Envio> T_Envio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Envio> T_Envio1 { get; set; }
     }
 }

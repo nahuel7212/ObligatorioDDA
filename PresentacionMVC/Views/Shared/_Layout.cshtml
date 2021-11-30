@@ -20,8 +20,6 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Usuarios", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Ver listado", "Index", "Home")</li>
                     </ul>
                 </div>
                 <div class="dropdown" style="margin-top: -34px; margin-left: 100px;">
@@ -30,13 +28,6 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Nuevo reclamo", "AgregarReclamo", "Reclamos")</li>
-                        <li>@Html.ActionLink("Ver mis reclamos", "ListadoMisReclamos", "Reclamos")</li>
-                        <li>@Html.ActionLink("Ver todos los reclamos", "ListadoReclamo", "Reclamos")</li>
-                        <li>@Html.ActionLink("Ver todos los reclamos en un mapa", "VerReclamosMapa", "Reclamos")</li>
-                        <hr />
-                        <li>@Html.ActionLink("Nuevo tipo", "AgregarTipoReclamo", "Reclamos")</li>
-                        <li>@Html.ActionLink("Ver listado tipo de reclamo", "ListadoTipoReclamo", "Reclamos")</li>
                     </ul>
                 </div>
                 <div class="dropdown" style="margin-top: -34px; margin-left: 180px;">
@@ -45,9 +36,6 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Nueva zona", "AgregarZona", "Zonas")</li>
-                        <li>@Html.ActionLink("Ver listado zonas", "ListadoZonas", "Zonas")</li>
-                        <li>@Html.ActionLink("Ver zonas en mapa", "VerZonasMapa", "Zonas")</li>
                     </ul>
                 </div>
                 <div class="dropdown" style="margin-top: -34px; margin-left: 285px;">
@@ -56,8 +44,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Nueva envio", "AgregarEnvio", "Envio")</li>
-                        <li>@Html.ActionLink("Ver listado cuadrillas", "ListadoCuadrilla", "Cuadrilla")</li>
+                        <li>@Html.ActionLink("Nuevo envio", "AgregarEnvio", "Envio")</li>
                     </ul>
                 </div>
                 <div class="dropdown" style="margin-top: -34px; margin-left: 370px;">
@@ -66,8 +53,6 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Nueva cuadrilla", "AgregarCuadrilla", "Cuadrilla")</li>
-                        <li>@Html.ActionLink("Ver listado cuadrillas", "ListadoCuadrilla", "Cuadrilla")</li>
                     </ul>
                 </div>
 
@@ -90,7 +75,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - DAK </p>
         </footer>
     </div>
 

@@ -12,15 +12,17 @@ namespace CommonSolution.Validation
         //Largos
         public string LargoMinimo(string texto, long valorMinimo, string textoMensaje)
         {
-            if (texto.Length < valorMinimo)
-                return textoMensaje + " debe tener mas de " + valorMinimo + " caracteres";
+            if (!string.IsNullOrEmpty(texto))
+                if (texto.Length < valorMinimo)
+                    return textoMensaje + " debe tener mas de " + valorMinimo + " caracteres";
           
             return null;
         }
         public string LargoMaximo(string texto, long valorMaximo, string textoMensaje)
         {
-            if (texto.Length > valorMaximo)
-                return textoMensaje + " debe tener menos de " + valorMaximo + " caracteres";
+            if(!string.IsNullOrEmpty(texto))
+                if (texto.Length > valorMaximo)
+                    return textoMensaje + " debe tener menos de " + valorMaximo + " caracteres";
 
             return null;
         }
@@ -39,8 +41,9 @@ namespace CommonSolution.Validation
         { 
             string Formato = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
 
-            if(Regex.IsMatch(correo, Formato))
-                return "Formato de correo incorrecto";
+            if (!string.IsNullOrEmpty(correo))
+                if (Regex.IsMatch(correo, Formato))
+                    return "Formato de correo incorrecto";
 
             return null;
         }

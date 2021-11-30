@@ -36,8 +36,9 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Latitud" Type="varchar" MaxLength="255" />
-          <Property Name="Longitud" Type="varchar" MaxLength="255" />
+          <Property Name="Latitud" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Longitud" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IdZona" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Empresa">
           <Key>
@@ -55,12 +56,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NroTracking" Type="int" Nullable="false" />
+          <Property Name="NroTracking" Type="bigint" Nullable="false" />
           <Property Name="PrecioTotal" Type="float" Nullable="false" />
           <Property Name="Estado" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IDFuncionario" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="IDCliente" Type="bigint" Nullable="false" />
-          <Property Name="IDTipoPago" Type="bigint" Nullable="false" />
+          <Property Name="IDRemitente" Type="bigint" Nullable="false" />
+          <Property Name="IDDestinatario" Type="bigint" Nullable="false" />
+          <Property Name="IDTipoPago" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IDCamion" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IDZona" Type="bigint" Nullable="false" />
           <Property Name="IDDireccion" Type="bigint" Nullable="false" />
@@ -97,9 +99,10 @@
         </EntityType>
         <EntityType Name="T_Puntos_Zona">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="IDPunto" />
           </Key>
-          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPunto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroZona" Type="bigint" Nullable="false" />
           <Property Name="Latitud" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Longitud" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
@@ -119,9 +122,8 @@
         </EntityType>
         <EntityType Name="T_TipoPago">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Nombre" />
           </Key>
-          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="255" />
         </EntityType>
@@ -216,18 +218,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__T_Envio__IDClien__5BE2A6F2">
-          <End Role="T_Cliente" Type="Self.T_Cliente" Multiplicity="1" />
-          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_Cliente">
-              <PropertyRef Name="IDCliente" />
-            </Principal>
-            <Dependent Role="T_Envio">
-              <PropertyRef Name="IDCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__T_Envio__IDDirec__5FB337D6">
           <End Role="T_Direccion" Type="Self.T_Direccion" Multiplicity="1" />
           <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
@@ -249,18 +239,6 @@
             </Principal>
             <Dependent Role="T_Envio">
               <PropertyRef Name="IDFuncionario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__T_Envio__IDTipoP__5CD6CB2B">
-          <End Role="T_TipoPago" Type="Self.T_TipoPago" Multiplicity="1" />
-          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_TipoPago">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="T_Envio">
-              <PropertyRef Name="IDTipoPago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -290,13 +268,13 @@
         </Association>
         <Association Name="FK__T_Puntos_Zon__ID__4BAC3F29">
           <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="1" />
-          <End Role="T_Puntos_Zona" Type="Self.T_Puntos_Zona" Multiplicity="0..1" />
+          <End Role="T_Puntos_Zona" Type="Self.T_Puntos_Zona" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Zona">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="T_Puntos_Zona">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="NumeroZona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -324,6 +302,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Direccion_T_Zona">
+          <End Role="T_Zona" Type="Self.T_Zona" Multiplicity="1" />
+          <End Role="T_Direccion" Type="Self.T_Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Direccion">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Empresa_T_GrupoPrecio">
           <End Role="T_GrupoPrecio" Type="Self.T_GrupoPrecio" Multiplicity="1" />
           <End Role="T_Empresa" Type="Self.T_Empresa" Multiplicity="*" />
@@ -336,6 +326,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Envio_T_Cliente">
+          <End Role="T_Cliente" Type="Self.T_Cliente" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Cliente">
+              <PropertyRef Name="IDCliente" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDRemitente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Envio_T_Cliente1">
+          <End Role="T_Cliente" Type="Self.T_Cliente" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Cliente">
+              <PropertyRef Name="IDCliente" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDDestinatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Envio_T_TipoPago">
+          <End Role="T_TipoPago" Type="Self.T_TipoPago" Multiplicity="1" />
+          <End Role="T_Envio" Type="Self.T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TipoPago">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Persona_T_GrupoPrecio">
           <End Role="T_GrupoPrecio" Type="Self.T_GrupoPrecio" Multiplicity="1" />
           <End Role="T_Persona" Type="Self.T_Persona" Multiplicity="*" />
@@ -344,7 +370,7 @@
               <PropertyRef Name="Nombre" />
             </Principal>
             <Dependent Role="T_Persona">
-              <PropertyRef Name="Nombre" />
+              <PropertyRef Name="GrupoPrecio" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -391,20 +417,12 @@
             <End Role="T_Camion" EntitySet="T_Camion" />
             <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
-          <AssociationSet Name="FK__T_Envio__IDClien__5BE2A6F2" Association="Self.FK__T_Envio__IDClien__5BE2A6F2">
-            <End Role="T_Cliente" EntitySet="T_Cliente" />
-            <End Role="T_Envio" EntitySet="T_Envio" />
-          </AssociationSet>
           <AssociationSet Name="FK__T_Envio__IDDirec__5FB337D6" Association="Self.FK__T_Envio__IDDirec__5FB337D6">
             <End Role="T_Direccion" EntitySet="T_Direccion" />
             <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
           <AssociationSet Name="FK__T_Envio__IDFunci__5AEE82B9" Association="Self.FK__T_Envio__IDFunci__5AEE82B9">
             <End Role="T_Funcionario" EntitySet="T_Funcionario" />
-            <End Role="T_Envio" EntitySet="T_Envio" />
-          </AssociationSet>
-          <AssociationSet Name="FK__T_Envio__IDTipoP__5CD6CB2B" Association="Self.FK__T_Envio__IDTipoP__5CD6CB2B">
-            <End Role="T_TipoPago" EntitySet="T_TipoPago" />
             <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
           <AssociationSet Name="FK__T_Envio__IDZona__5EBF139D" Association="Self.FK__T_Envio__IDZona__5EBF139D">
@@ -427,9 +445,25 @@
             <End Role="T_Ruta" EntitySet="T_Ruta" />
             <End Role="T_Ruta_Direcciones" EntitySet="T_Ruta_Direcciones" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_Direccion_T_Zona" Association="Self.FK_T_Direccion_T_Zona">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_Empresa_T_GrupoPrecio" Association="Self.FK_T_Empresa_T_GrupoPrecio">
             <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
             <End Role="T_Empresa" EntitySet="T_Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Envio_T_Cliente" Association="Self.FK_T_Envio_T_Cliente">
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Envio_T_Cliente1" Association="Self.FK_T_Envio_T_Cliente1">
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Envio_T_TipoPago" Association="Self.FK_T_Envio_T_TipoPago">
+            <End Role="T_TipoPago" EntitySet="T_TipoPago" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
           <AssociationSet Name="FK_T_Persona_T_GrupoPrecio" Association="Self.FK_T_Persona_T_GrupoPrecio">
             <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
@@ -479,7 +513,11 @@
             <End Role="T_Persona" EntitySet="T_Persona" />
             <End Role="T_Cliente" EntitySet="T_Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__T_Envio__IDClien__5BE2A6F2" Association="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2">
+          <AssociationSet Name="FK_T_Envio_T_Cliente" Association="DAKObligatorioModel.FK_T_Envio_T_Cliente">
+            <End Role="T_Cliente" EntitySet="T_Cliente" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Envio_T_Cliente1" Association="DAKObligatorioModel.FK_T_Envio_T_Cliente1">
             <End Role="T_Cliente" EntitySet="T_Cliente" />
             <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
@@ -499,6 +537,10 @@
             <End Role="T_Direccion" EntitySet="T_Direccion" />
             <End Role="T_Ruta_Direcciones" EntitySet="T_Ruta_Direcciones" />
           </AssociationSet>
+          <AssociationSet Name="FK_T_Direccion_T_Zona" Association="DAKObligatorioModel.FK_T_Direccion_T_Zona">
+            <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Direccion" EntitySet="T_Direccion" />
+          </AssociationSet>
           <AssociationSet Name="FK_T_Empresa_T_GrupoPrecio" Association="DAKObligatorioModel.FK_T_Empresa_T_GrupoPrecio">
             <End Role="T_GrupoPrecio" EntitySet="T_GrupoPrecio" />
             <End Role="T_Empresa" EntitySet="T_Empresa" />
@@ -507,12 +549,12 @@
             <End Role="T_Funcionario" EntitySet="T_Funcionario" />
             <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
-          <AssociationSet Name="FK__T_Envio__IDTipoP__5CD6CB2B" Association="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B">
-            <End Role="T_TipoPago" EntitySet="T_TipoPago" />
-            <End Role="T_Envio" EntitySet="T_Envio" />
-          </AssociationSet>
           <AssociationSet Name="FK__T_Envio__IDZona__5EBF139D" Association="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D">
             <End Role="T_Zona" EntitySet="T_Zona" />
+            <End Role="T_Envio" EntitySet="T_Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Envio_T_TipoPago" Association="DAKObligatorioModel.FK_T_Envio_T_TipoPago">
+            <End Role="T_TipoPago" EntitySet="T_TipoPago" />
             <End Role="T_Envio" EntitySet="T_Envio" />
           </AssociationSet>
           <AssociationSet Name="FK_T_Persona_T_GrupoPrecio" Association="DAKObligatorioModel.FK_T_Persona_T_GrupoPrecio">
@@ -559,7 +601,8 @@
           <Property Name="IDPersona" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="T_Empresa" Relationship="DAKObligatorioModel.FK__T_Cliente__IDEmp__4222D4EF" FromRole="T_Cliente" ToRole="T_Empresa" />
           <NavigationProperty Name="T_Persona" Relationship="DAKObligatorioModel.FK__T_Cliente__IDPer__4316F928" FromRole="T_Cliente" ToRole="T_Persona" />
-          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2" FromRole="T_Cliente" ToRole="T_Envio" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK_T_Envio_T_Cliente" FromRole="T_Cliente" ToRole="T_Envio" />
+          <NavigationProperty Name="T_Envio1" Relationship="DAKObligatorioModel.FK_T_Envio_T_Cliente1" FromRole="T_Cliente" ToRole="T_Envio" />
         </EntityType>
         <EntityType Name="T_Direccion">
           <Key>
@@ -567,12 +610,14 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Latitud" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Longitud" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Latitud" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Longitud" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IdZona" Type="Int64" Nullable="false" />
           <NavigationProperty Name="T_Empresa" Relationship="DAKObligatorioModel.FK__T_Empresa__IDDir__3B75D760" FromRole="T_Direccion" ToRole="T_Empresa" />
           <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDDirec__5FB337D6" FromRole="T_Direccion" ToRole="T_Envio" />
           <NavigationProperty Name="T_Persona" Relationship="DAKObligatorioModel.FK__T_Persona__IDDir__3F466844" FromRole="T_Direccion" ToRole="T_Persona" />
           <NavigationProperty Name="T_Ruta_Direcciones" Relationship="DAKObligatorioModel.FK__T_Ruta_Di__IDDir__5165187F" FromRole="T_Direccion" ToRole="T_Ruta_Direcciones" />
+          <NavigationProperty Name="T_Zona" Relationship="DAKObligatorioModel.FK_T_Direccion_T_Zona" FromRole="T_Direccion" ToRole="T_Zona" />
         </EntityType>
         <EntityType Name="T_Empresa">
           <Key>
@@ -593,21 +638,23 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NroTracking" Type="Int32" Nullable="false" />
+          <Property Name="NroTracking" Type="Int64" Nullable="false" />
           <Property Name="PrecioTotal" Type="Double" Nullable="false" />
           <Property Name="Estado" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IDFuncionario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="IDCliente" Type="Int64" Nullable="false" />
-          <Property Name="IDTipoPago" Type="Int64" Nullable="false" />
+          <Property Name="IDRemitente" Type="Int64" Nullable="false" />
+          <Property Name="IDDestinatario" Type="Int64" Nullable="false" />
+          <Property Name="IDTipoPago" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IDCamion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IDZona" Type="Int64" Nullable="false" />
           <Property Name="IDDireccion" Type="Int64" Nullable="false" />
           <NavigationProperty Name="T_Camion" Relationship="DAKObligatorioModel.FK__T_Envio__IDCamio__5DCAEF64" FromRole="T_Envio" ToRole="T_Camion" />
-          <NavigationProperty Name="T_Cliente" Relationship="DAKObligatorioModel.FK__T_Envio__IDClien__5BE2A6F2" FromRole="T_Envio" ToRole="T_Cliente" />
+          <NavigationProperty Name="T_Cliente" Relationship="DAKObligatorioModel.FK_T_Envio_T_Cliente" FromRole="T_Envio" ToRole="T_Cliente" />
+          <NavigationProperty Name="T_Cliente1" Relationship="DAKObligatorioModel.FK_T_Envio_T_Cliente1" FromRole="T_Envio" ToRole="T_Cliente" />
           <NavigationProperty Name="T_Direccion" Relationship="DAKObligatorioModel.FK__T_Envio__IDDirec__5FB337D6" FromRole="T_Envio" ToRole="T_Direccion" />
           <NavigationProperty Name="T_Funcionario" Relationship="DAKObligatorioModel.FK__T_Envio__IDFunci__5AEE82B9" FromRole="T_Envio" ToRole="T_Funcionario" />
-          <NavigationProperty Name="T_TipoPago" Relationship="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B" FromRole="T_Envio" ToRole="T_TipoPago" />
           <NavigationProperty Name="T_Zona" Relationship="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D" FromRole="T_Envio" ToRole="T_Zona" />
+          <NavigationProperty Name="T_TipoPago" Relationship="DAKObligatorioModel.FK_T_Envio_T_TipoPago" FromRole="T_Envio" ToRole="T_TipoPago" />
         </EntityType>
         <EntityType Name="T_Funcionario">
           <Key>
@@ -647,9 +694,10 @@
         </EntityType>
         <EntityType Name="T_Puntos_Zona">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="IDPunto" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPunto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroZona" Type="Int64" Nullable="false" />
           <Property Name="Latitud" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Longitud" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="T_Zona" Relationship="DAKObligatorioModel.FK__T_Puntos_Zon__ID__4BAC3F29" FromRole="T_Puntos_Zona" ToRole="T_Zona" />
@@ -674,12 +722,11 @@
         </EntityType>
         <EntityType Name="T_TipoPago">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Nombre" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDTipoP__5CD6CB2B" FromRole="T_TipoPago" ToRole="T_Envio" />
+          <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK_T_Envio_T_TipoPago" FromRole="T_TipoPago" ToRole="T_Envio" />
         </EntityType>
         <EntityType Name="T_Zona">
           <Key>
@@ -688,6 +735,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="T_Camion_Zona" Relationship="DAKObligatorioModel.FK__T_Camion___IDZon__571DF1D5" FromRole="T_Zona" ToRole="T_Camion_Zona" />
+          <NavigationProperty Name="T_Direccion" Relationship="DAKObligatorioModel.FK_T_Direccion_T_Zona" FromRole="T_Zona" ToRole="T_Direccion" />
           <NavigationProperty Name="T_Envio" Relationship="DAKObligatorioModel.FK__T_Envio__IDZona__5EBF139D" FromRole="T_Zona" ToRole="T_Envio" />
           <NavigationProperty Name="T_Puntos_Zona" Relationship="DAKObligatorioModel.FK__T_Puntos_Zon__ID__4BAC3F29" FromRole="T_Zona" ToRole="T_Puntos_Zona" />
         </EntityType>
@@ -763,7 +811,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__T_Envio__IDClien__5BE2A6F2">
+        <Association Name="FK_T_Envio_T_Cliente">
           <End Type="DAKObligatorioModel.T_Cliente" Role="T_Cliente" Multiplicity="1" />
           <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
           <ReferentialConstraint>
@@ -771,7 +819,19 @@
               <PropertyRef Name="IDCliente" />
             </Principal>
             <Dependent Role="T_Envio">
+              <PropertyRef Name="IDRemitente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Envio_T_Cliente1">
+          <End Type="DAKObligatorioModel.T_Cliente" Role="T_Cliente" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Cliente">
               <PropertyRef Name="IDCliente" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDDestinatario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -823,6 +883,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Direccion_T_Zona">
+          <End Type="DAKObligatorioModel.T_Zona" Role="T_Zona" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Direccion" Role="T_Direccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_Zona">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Direccion">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Empresa_T_GrupoPrecio">
           <End Type="DAKObligatorioModel.T_GrupoPrecio" Role="T_GrupoPrecio" Multiplicity="1" />
           <End Type="DAKObligatorioModel.T_Empresa" Role="T_Empresa" Multiplicity="*" />
@@ -847,18 +919,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__T_Envio__IDTipoP__5CD6CB2B">
-          <End Type="DAKObligatorioModel.T_TipoPago" Role="T_TipoPago" Multiplicity="1" />
-          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="T_TipoPago">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="T_Envio">
-              <PropertyRef Name="IDTipoPago" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__T_Envio__IDZona__5EBF139D">
           <End Type="DAKObligatorioModel.T_Zona" Role="T_Zona" Multiplicity="1" />
           <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
@@ -871,6 +931,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_T_Envio_T_TipoPago">
+          <End Type="DAKObligatorioModel.T_TipoPago" Role="T_TipoPago" Multiplicity="1" />
+          <End Type="DAKObligatorioModel.T_Envio" Role="T_Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_TipoPago">
+              <PropertyRef Name="Nombre" />
+            </Principal>
+            <Dependent Role="T_Envio">
+              <PropertyRef Name="IDTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_T_Persona_T_GrupoPrecio">
           <End Type="DAKObligatorioModel.T_GrupoPrecio" Role="T_GrupoPrecio" Multiplicity="1" />
           <End Type="DAKObligatorioModel.T_Persona" Role="T_Persona" Multiplicity="*" />
@@ -879,19 +951,19 @@
               <PropertyRef Name="Nombre" />
             </Principal>
             <Dependent Role="T_Persona">
-              <PropertyRef Name="Nombre" />
+              <PropertyRef Name="GrupoPrecio" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__T_Puntos_Zon__ID__4BAC3F29">
           <End Type="DAKObligatorioModel.T_Zona" Role="T_Zona" Multiplicity="1" />
-          <End Type="DAKObligatorioModel.T_Puntos_Zona" Role="T_Puntos_Zona" Multiplicity="0..1" />
+          <End Type="DAKObligatorioModel.T_Puntos_Zona" Role="T_Puntos_Zona" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="T_Zona">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="T_Puntos_Zona">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="NumeroZona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -944,6 +1016,7 @@
           <EntitySetMapping Name="T_Direccion">
             <EntityTypeMapping TypeName="DAKObligatorioModel.T_Direccion">
               <MappingFragment StoreEntitySet="T_Direccion">
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
                 <ScalarProperty Name="Longitud" ColumnName="Longitud" />
                 <ScalarProperty Name="Latitud" ColumnName="Latitud" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -970,7 +1043,8 @@
                 <ScalarProperty Name="IDZona" ColumnName="IDZona" />
                 <ScalarProperty Name="IDCamion" ColumnName="IDCamion" />
                 <ScalarProperty Name="IDTipoPago" ColumnName="IDTipoPago" />
-                <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
+                <ScalarProperty Name="IDDestinatario" ColumnName="IDDestinatario" />
+                <ScalarProperty Name="IDRemitente" ColumnName="IDRemitente" />
                 <ScalarProperty Name="IDFuncionario" ColumnName="IDFuncionario" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
@@ -1017,7 +1091,8 @@
               <MappingFragment StoreEntitySet="T_Puntos_Zona">
                 <ScalarProperty Name="Longitud" ColumnName="Longitud" />
                 <ScalarProperty Name="Latitud" ColumnName="Latitud" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NumeroZona" ColumnName="NumeroZona" />
+                <ScalarProperty Name="IDPunto" ColumnName="IDPunto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1042,7 +1117,6 @@
               <MappingFragment StoreEntitySet="T_TipoPago">
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

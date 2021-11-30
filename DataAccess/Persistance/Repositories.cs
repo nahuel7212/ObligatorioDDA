@@ -19,6 +19,13 @@ namespace DataAccess.Persistance
         //Envio
         private EnvioRepository _envioRepository;
 
+        //Zona
+        private ZonaRepository _zonaRepository;
+
+        //Funcionario
+        private FuncionarioRepository _funcionarioRepository;
+
+
         public Repositories()
         {
             //Cliente
@@ -29,6 +36,12 @@ namespace DataAccess.Persistance
 
             //Envio
             this._envioRepository = new EnvioRepository();
+
+            //Zona
+            this._zonaRepository = new ZonaRepository();
+
+            //Funcionario
+            this._funcionarioRepository = new FuncionarioRepository();
         }
 
         //Cliente
@@ -49,11 +62,22 @@ namespace DataAccess.Persistance
             return this._grupoPrecioRepository;
         }
 
-
         //Envio
         public EnvioRepository GetEnvioRepository()
         {
             return this._envioRepository;
+        }
+
+        //Zona
+        public ZonaRepository GetZonaRepository()
+        {
+            return this._zonaRepository;
+        }
+
+        //Funcionario
+        public FuncionarioRepository GetFuncionarioRepository()
+        {
+            return this._funcionarioRepository;
         }
     }
 }

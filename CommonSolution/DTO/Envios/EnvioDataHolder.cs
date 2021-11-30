@@ -28,17 +28,18 @@ namespace CommonSolution.DTO.Envios
         [StringLength(255, ErrorMessage = "Descripcion de contenido no puede superar {1} caracteres")]
         public string DescripcionContenido { get; set; }
 
-        public string FuncionarioResponsable { get; set; }
-
         [DisplayName("Nombre: ")]
         [StringLength(255, ErrorMessage = "Nombre de direccion no puede superar {1} caracteres")]
         public string NombreDireccion { get; set; }
+        
+        [DisplayName("Precio total: ")]
+        public double PrecioTotal { get; set; }
+
         public string Latitud { get; set; }
         public string Longitud { get; set; }
         public string DatoZona { get; set; }
-        public double PrecioTotal { get; set; }
         public string TipoPago { get; set; }
+        public string FuncionarioResponsable { get; set; }
 
-        
     }
 }

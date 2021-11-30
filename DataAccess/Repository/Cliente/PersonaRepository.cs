@@ -30,7 +30,7 @@ namespace DataAccess.Repository.Cliente
         {
             using (DAKObligatorioEntities context = new DAKObligatorioEntities())
             {
-                return this._personaMapper.MapToObject(context.T_Persona.AsNoTracking().FirstOrDefault(f => f.Documento == documento));
+                return this._personaMapper.MapToObject(context.T_Cliente.AsNoTracking().Include("T_Persona").AsNoTracking().FirstOrDefault(f => f.IDPersona == documento));
             }
         }
     }

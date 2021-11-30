@@ -14,7 +14,8 @@ namespace DataAccess.Model
     
     public partial class T_Puntos_Zona
     {
-        public long ID { get; set; }
+        public long IDPunto { get; set; }
+        public long NumeroZona { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
     

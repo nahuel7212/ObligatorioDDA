@@ -1,4 +1,6 @@
-﻿using CommonSolution.DTO.Clientes;
+﻿using BussinesLogic.LControllers;
+using CommonSolution.DTO.Camiones;
+using CommonSolution.DTO.Clientes;
 using CommonSolution.DTO.Envios;
 using System;
 using System.Collections.Generic;
@@ -15,12 +17,11 @@ namespace PresentacionMVC.Controllers
             return View();
         }
 
-        public ActionResult AgregarNuevoEnvio(EnvioDataHolder dto)
+        public ActionResult AgregarNuevoEnvio(EnvioDataHolder envioDT)
         {
-            //LEnvioController envioController = new LEnvioController();
-            //List<string> erroresList = envioController.AgregarEnvio(dto);
+            LEnvioController envioController = new LEnvioController();
+            List<string> erroresList = envioController.AgregarEnvio(envioDT);
 
-            /*
             if (erroresList.Count != 0)
             {
                 foreach (string error in erroresList)
@@ -29,14 +30,29 @@ namespace PresentacionMVC.Controllers
                 }
             }
             else
-            */
-            EnvioDataHolder x = dto;
-
-            ModelState.Clear();
-            ModelState.AddModelError("SuccessGeneral", "Envio registrado");
+            { 
+                ModelState.Clear();
+                ModelState.AddModelError("SuccessGeneral", "Envio registrado");
+            }
 
             return View("AgregarEnvio");
         }
+        public JsonResult GetPrecioTotal(EnvioDataHolder envioDT)
+        {
+            LEnvioController envioController = new LEnvioController();
+            double precioTotal =  envioController.GetDatoPrecioTotal(envioDT);
 
+            return Json(precioTotal, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult CargarMapaZona()
+        {
+            LZonaController zonaLController = new LZonaController();
+            List<PuntosZona> puntosList = zonaLController.GetPuntosZona();
+
+            return Json(puntosList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

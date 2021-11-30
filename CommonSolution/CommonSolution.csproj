@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\Camiones\Camion.cs" />
+    <Compile Include="DTO\Camiones\PuntosZona.cs" />
     <Compile Include="DTO\Camiones\Ruta.cs" />
     <Compile Include="DTO\Camiones\Zona.cs" />
     <Compile Include="DTO\Clientes\Cliente.cs" />

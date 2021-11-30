@@ -29,7 +29,7 @@ namespace DataAccess.Repository.Cliente
         {
             using (DAKObligatorioEntities context = new DAKObligatorioEntities())
             {
-                return this._empresaMapper.MapToObject(context.T_Empresa.AsNoTracking().FirstOrDefault(f => f.Rut == rut));
+                return this._empresaMapper.MapToObject(context.T_Cliente.AsNoTracking().Include("T_Empresa").AsNoTracking().FirstOrDefault(f => f.IDEmpresa == rut));
             }
         }
     }

@@ -1,11 +1,10 @@
 ﻿window.onload = load;
 
 function load() {
-    x();
+    LogicaMapa();
 }
 
-function x() {
-    //alert("testing"); 
+function LogicaMapa() {
     ConseguirValoresAjax();
 }
 
@@ -18,7 +17,7 @@ var entro = false;
 var markers = [];
 var uniqueId = 1;
 
-function Mapatest(outerCoords) {
+function ValoresMapa(outerCoords) {
     markerUsed = 0;
     var q = 0;
     var x = "x";
@@ -114,19 +113,12 @@ function DeleteMarker(id) {
     }
 };
 
-function cargarColor() {
-    document.getElementById("color").value = document.getElementById("colorElegido").value;
-    colorDePoligono = document.getElementById("colorElegido").value;
-}
-var colorDePoligono = "#000000";
-
 // ---------------------------------------------------------VALORES ZONA----------------------------------------------------------------------------
 
 var coloresZona = [];
 var numerosDeZonas = [];
 
 function ConseguirValoresAjax() {
-    /*
     var arrayListWithinList = [];
     var arrayList = [];
     var t1 = 0;
@@ -136,32 +128,27 @@ function ConseguirValoresAjax() {
         type: 'GET',
         success: function (result) {
 
-            var auxNumeroZona = result[0].numeroZona
-
-            //var t = result[i].numeroZona;
+            var auxNumeroZona = result[0].NumeroZona
 
             for (var i = 0; i < result.length; i++) {
 
+                while (auxNumeroZona == result[i].NumeroZona) {
+                    t1 = 0;
+                    t2 = 0;
 
-
-                while (auxNumeroZona == result[i].numeroZona) {
-
-                    if (result[i + 1] != null) {
-                        t1 = parseFloat(result[i].puntosGPS);
-                        t2 = parseFloat(result[i + 1].puntosGPS);
+                    if (result[i] != null) {
+                        t1 = parseFloat(result[i].Latitud);
+                        t2 = parseFloat(result[i].Longitud);
                         const array1 = { lat: t1, lng: t2 };
                         arrayList.push(array1)
                     }
 
-                    t1 = 0;
-                    t2 = 0;
-
-                    if (i == result.length - 1)
+                    if (i == result.length)
                         break;
-                    else if (i + 2 >= result.length - 1)
+                    else if (i + 1 >= result.length)
                         break;
                     else
-                        i += 2;
+                        i++;
                 }
                 arrayListWithinList.push(arrayList);
                 arrayList = [];
@@ -172,46 +159,7 @@ function ConseguirValoresAjax() {
                 else if (i != result.length - 1)
                     i--;
             }
-            //colorZona(arrayListWithinList);
+            ValoresMapa(arrayListWithinList);
         }
-    });
-    */
-
-    //Simular lo que vendria de base
-    var arrayListWithinList = [];
-
-    var obj1 = { lat: -0.2807705373192177, lng: 37.671588591460676 };
-    var obj2 = { lat: -0.14893555582027945, lng: 39.495319060210676 };
-    var obj3 = { lat: -1.0497558937240812, lng: 39.517291716460676 };
-    var obj4 = { lat: -1.1815668096406249, lng: 37.759479216460676 };
-
-    var arrayList = [];
-    arrayList.push(obj1);
-    arrayList.push(obj2);
-    arrayList.push(obj3);
-    arrayList.push(obj4);
-
-    arrayListWithinList.push(arrayList);
-
-    Mapatest(arrayListWithinList);
-}
-
-
-function colorZona(arrayListWithinList) {
-    var json = { numeroZonaList: numerosDeZonas };
-
-    $.ajax({
-        url: 'ColorZona',
-        type: 'POST',
-        data: json,
-        success: function (result) {
-            var x = result;
-            for (var i = 0; i < x.length; i++) {
-                coloresZona.push(x[i]);
-            }
-            Mapatest(arrayListWithinList);
-
-        }
-
     });
 }

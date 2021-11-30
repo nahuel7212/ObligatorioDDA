@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CommonSolution.DTO.Camiones
 {
-    public class Zona
+    public class PuntosZona
     {
-        public long IdZona { get; set; }
-        public string Nombre { get; set; }
-        public List<PuntosZona> PuntosZona { get; set; }
+        public long NumeroZona { get; set; }
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
     }
 }

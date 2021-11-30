@@ -40,6 +40,9 @@ namespace PresentacionMVC
 
             bundles.Add(new ScriptBundle("~/bundles/mapaEnvios").Include(
                 "~/Scripts/Mapas/MapaParaEnvios.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/precioTotal").Include(
+               "~/Scripts/GetPrecioTotal.js"));
         }
     }
 }

@@ -58,6 +58,8 @@
     <Compile Include="Mapper\Cliente\GrupoPrecioMapper.cs" />
     <Compile Include="Mapper\Cliente\PersonaMapper.cs" />
     <Compile Include="Mapper\EnvioMapper.cs" />
+    <Compile Include="Mapper\FuncionarioMapper.cs" />
+    <Compile Include="Mapper\ZonaMapper.cs" />
     <Compile Include="Model\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -122,6 +124,8 @@
     <Compile Include="Repository\Cliente\GrupoPrecioRepository.cs" />
     <Compile Include="Repository\Cliente\PersonaRepository.cs" />
     <Compile Include="Repository\EnvioRepository.cs" />
+    <Compile Include="Repository\FuncionarioRepository.cs" />
+    <Compile Include="Repository\ZonaRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

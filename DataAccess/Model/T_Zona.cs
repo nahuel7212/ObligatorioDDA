@@ -18,7 +18,9 @@ namespace DataAccess.Model
         public T_Zona()
         {
             this.T_Camion_Zona = new HashSet<T_Camion_Zona>();
+            this.T_Direccion = new HashSet<T_Direccion>();
             this.T_Envio = new HashSet<T_Envio>();
+            this.T_Puntos_Zona = new HashSet<T_Puntos_Zona>();
         }
     
         public long ID { get; set; }
@@ -27,7 +29,10 @@ namespace DataAccess.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Camion_Zona> T_Camion_Zona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Direccion> T_Direccion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Envio> T_Envio { get; set; }
-        public virtual T_Puntos_Zona T_Puntos_Zona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Puntos_Zona> T_Puntos_Zona { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace DataAccess.Repository
                 {
                     try
                     {
-                        context.T_Direccion.Add(this._envioMapper.MapToEntity(envio));
+                        context.T_Envio.Add(this._envioMapper.MapToEntity(envio));
                         context.SaveChanges();
                         trann.Commit();
                     }
@@ -40,7 +40,7 @@ namespace DataAccess.Repository
             }
         }
 
-        public bool ExisteNumeroTracking(int nroTracking)
+        public bool ExisteNumeroTracking(long nroTracking)
         {
             using (DAKObligatorioEntities context = new DAKObligatorioEntities())
             {

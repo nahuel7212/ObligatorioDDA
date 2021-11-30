@@ -27,6 +27,7 @@ namespace DataAccess.Model
         public string Nombre { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
+        public long IdZona { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Empresa> T_Empresa { get; set; }
@@ -36,5 +37,6 @@ namespace DataAccess.Model
         public virtual ICollection<T_Persona> T_Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Ruta_Direcciones> T_Ruta_Direcciones { get; set; }
+        public virtual T_Zona T_Zona { get; set; }
     }
 }

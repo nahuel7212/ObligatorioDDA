@@ -20,7 +20,6 @@ namespace DataAccess.Model
             this.T_Envio = new HashSet<T_Envio>();
         }
     
-        public long ID { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
     

@@ -1,6 +1,7 @@
 ﻿using CommonSolution.DTO.Clientes;
 using DataAccess.Model;
 using DataAccess.Persistance;
+using DataAccess.Repository.Cliente;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +12,20 @@ namespace DataAccess.Mapper.Cliente
 {
     public class EmpresaMapper
     {
-        private Repositories _repositories;
+        DireccionRepository _direccionRepository = new DireccionRepository();
+        readonly GrupoPrecioRepository _grupoPrecioRepository = new GrupoPrecioRepository();
 
-        public EmpresaMapper()
-        {
-            _repositories = new Repositories();
-        }
-
-        public Empresa MapToObject(T_Empresa entity)
+        public Empresa MapToObject(T_Cliente entity)
         {
             return new Empresa()
             {
-                Rut = entity.Rut,
-                RazonSocial = entity.RazonSocial,
-                Correo = entity.Correo,
-                Telefono = entity.Telefono,
-                Direccion = _repositories.GetDireccionRepository().GetDireccion(entity.IDDireccion),
-                TipoPrecio = _repositories.GetGrupoPrecioRepository().GetPrecio(entity.GrupoPrecio)
+                IdCliente = entity.IDCliente,
+                Rut = entity.T_Empresa.Rut,
+                RazonSocial = entity.T_Empresa.RazonSocial,
+                Correo = entity.T_Empresa.Correo,
+                Telefono = entity.T_Empresa.Telefono,
+                Direccion = _direccionRepository.GetDireccion(entity.T_Empresa.IDDireccion),
+                TipoPrecio = _grupoPrecioRepository.GetPrecio(entity.T_Empresa.GrupoPrecio)
             };
         }
     }
