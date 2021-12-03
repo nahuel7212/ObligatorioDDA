@@ -50,7 +50,8 @@ namespace BussinesLogic.LControllers
         }
         public long CrearNuevaDireccion(EnvioDataHolder envioDT)
         {
-            Direccion nuevaDireccion = new Direccion() { Latitud = envioDT.Latitud, Longitud = envioDT.Longitud, Nombre = envioDT.NombreDireccion };
+            Direccion nuevaDireccion = new Direccion() { Latitud = envioDT.Latitud, Longitud = envioDT.Longitud, Nombre = envioDT.NombreDireccion};
+            nuevaDireccion.Zona = repositories.GetZonaRepository().GetZonasByDato(envioDT.DatoZona);
             return repositories.GetDireccionRepository().AgregarDireccionReturnId(nuevaDireccion);
         }
         #endregion
@@ -58,9 +59,21 @@ namespace BussinesLogic.LControllers
         #region Devolucion de datos
         public double GetDatoPrecioTotal(EnvioDataHolder envioDT)
         {
+            Persona remitentePersona = null;
+            Empresa remitenteEmpresa = null;
             Persona destinatarioPersona = null;
             Empresa destinatarioEmpresa = null;
             double kilometros = 0;
+
+            //Remitente
+            if (repositories.GetPersonaRepository().ExistePersona(envioDT.RemitenteId))
+            {
+                remitentePersona = repositories.GetPersonaRepository().GetPersona(envioDT.RemitenteId);
+            }
+            else if (repositories.GetEmpresaRepository().ExisteEmpresa(envioDT.RemitenteId))
+            {
+                remitenteEmpresa = repositories.GetEmpresaRepository().GetEmpresa(envioDT.RemitenteId);
+            }
 
             //Destinatario
             if (repositories.GetPersonaRepository().ExistePersona(envioDT.ClienteDestinatarioId))
@@ -71,6 +84,12 @@ namespace BussinesLogic.LControllers
             {
                 destinatarioEmpresa = repositories.GetEmpresaRepository().GetEmpresa(envioDT.ClienteDestinatarioId);
             }
+
+            if (remitentePersona == null && remitenteEmpresa == null)
+                return 0;
+
+            if (destinatarioPersona == null && destinatarioEmpresa == null)
+                return 0;
 
             //Precio total
             if (destinatarioPersona != null)
@@ -84,7 +103,10 @@ namespace BussinesLogic.LControllers
                     Direccion direccion = repositories.GetDireccionRepository().GetDireccion(destinatarioPersona.Direccion.IdDireccion);
                     kilometros = DoubleParseDatosYLlamadaCalculo(latDAK, lonDAK, direccion.Latitud, direccion.Longitud);
                 }
-                envioDT.PrecioTotal = destinatarioPersona.TipoPrecio.PrecioTotal(envioDT.PesoTotal, kilometros);
+                if(remitentePersona != null)
+                    envioDT.PrecioTotal = remitentePersona.TipoPrecio.PrecioTotal(envioDT.PesoTotal, kilometros);
+                else
+                    envioDT.PrecioTotal = remitenteEmpresa.TipoPrecio.PrecioTotal(envioDT.PesoTotal, kilometros);
             }
             else
             {
@@ -97,7 +119,10 @@ namespace BussinesLogic.LControllers
                     Direccion direccion = repositories.GetDireccionRepository().GetDireccion(destinatarioEmpresa.Direccion.IdDireccion);
                     kilometros = DoubleParseDatosYLlamadaCalculo(latDAK, lonDAK, direccion.Latitud, direccion.Longitud);
                 }
-                envioDT.PrecioTotal = destinatarioEmpresa.TipoPrecio.PrecioTotal(envioDT.PesoTotal, kilometros);
+                if (remitentePersona != null)
+                    envioDT.PrecioTotal = remitentePersona.TipoPrecio.PrecioTotal(envioDT.PesoTotal, kilometros);
+                else
+                    envioDT.PrecioTotal = remitenteEmpresa.TipoPrecio.PrecioTotal(envioDT.PesoTotal, kilometros);
             }
 
             return envioDT.PrecioTotal;
@@ -118,10 +143,11 @@ namespace BussinesLogic.LControllers
         public Envio PasarDatosObjetoEnvio(EnvioDataHolder envioDT)
         {
             Envio envio = new Envio();
+            Persona remitentePersona = null;
+            Empresa remitenteEmpresa = null;
             Persona destinatarioPersona = null;
             Empresa destinatarioEmpresa = null;
             Direccion direccion = null;
-            double kilometros = 0;
 
             //Tipo pago
             GetTipoPago(envioDT, envio);
@@ -142,13 +168,13 @@ namespace BussinesLogic.LControllers
             GetDireccionNueva(envioDT, envio);
 
             //Remitente 
-            GetRemitente(envioDT, envio);
+            GetRemitente(envioDT, envio, ref remitentePersona, ref remitenteEmpresa);
 
             //Destinatario
             GetDestinatario(envioDT, envio, ref destinatarioPersona, ref destinatarioEmpresa);
 
             //Precio total
-            GetPrecioTotal(envioDT, envio, ref destinatarioPersona, ref destinatarioEmpresa, ref direccion, ref kilometros);
+            GetPrecioTotal(envioDT, envio, ref remitentePersona, ref remitenteEmpresa, ref destinatarioPersona, ref destinatarioEmpresa, ref direccion);
 
             //Direccion (solo se hace si no hay una nueva direccion)
             if (string.IsNullOrEmpty(envioDT.Latitud) && string.IsNullOrEmpty(envioDT.Longitud))
@@ -200,15 +226,17 @@ namespace BussinesLogic.LControllers
 
             return envio;
         }
-        public Envio GetRemitente(EnvioDataHolder envioDT, Envio envio)
+        public Envio GetRemitente(EnvioDataHolder envioDT, Envio envio, ref Persona remitentePersona, ref Empresa remitenteEmpresa)
         {
             if (repositories.GetPersonaRepository().ExistePersona(envioDT.RemitenteId))
             {
-                envio.Remitente = repositories.GetPersonaRepository().GetPersona(envioDT.RemitenteId);
+                remitentePersona = repositories.GetPersonaRepository().GetPersona(envioDT.RemitenteId);
+                envio.Remitente = remitentePersona;
             }
             else if (repositories.GetEmpresaRepository().ExisteEmpresa(envioDT.RemitenteId))
             {
-                envio.Remitente = repositories.GetEmpresaRepository().GetEmpresa(envioDT.RemitenteId);
+                remitenteEmpresa = repositories.GetEmpresaRepository().GetEmpresa(envioDT.RemitenteId);
+                envio.Remitente = remitenteEmpresa;
             }
 
             return envio;
@@ -227,8 +255,10 @@ namespace BussinesLogic.LControllers
             }
             return envio;
         }
-        public Envio GetPrecioTotal(EnvioDataHolder envioDT, Envio envio, ref Persona destinatarioPersona, ref Empresa destinatarioEmpresa, ref Direccion direccion, ref double kilometros)
+        public Envio GetPrecioTotal(EnvioDataHolder envioDT, Envio envio, ref Persona remitentePersona, ref Empresa remitenteEmpresa, ref Persona destinatarioPersona, ref Empresa destinatarioEmpresa, ref Direccion direccion)
         {
+            double kilometros = 0;
+
             if (destinatarioPersona != null)
             {
                 if (!string.IsNullOrEmpty(envioDT.Latitud) && !string.IsNullOrEmpty(envioDT.Longitud))
@@ -240,7 +270,10 @@ namespace BussinesLogic.LControllers
                     direccion = repositories.GetDireccionRepository().GetDireccion(destinatarioPersona.Direccion.IdDireccion);
                     kilometros = DoubleParseDatosYLlamadaCalculo(latDAK, lonDAK, direccion.Latitud, direccion.Longitud);
                 }
-                envio.PrecioTotal = destinatarioPersona.TipoPrecio.PrecioTotal(envio.PesoTotal, kilometros);
+                if(remitentePersona != null)
+                    envio.PrecioTotal = remitentePersona.TipoPrecio.PrecioTotal(envio.PesoTotal, kilometros);
+                else
+                    envio.PrecioTotal = remitenteEmpresa.TipoPrecio.PrecioTotal(envio.PesoTotal, kilometros);
             }
             else
             {
@@ -253,7 +286,10 @@ namespace BussinesLogic.LControllers
                     direccion = repositories.GetDireccionRepository().GetDireccion(destinatarioEmpresa.Direccion.IdDireccion);
                     kilometros = DoubleParseDatosYLlamadaCalculo(latDAK, lonDAK, direccion.Latitud, direccion.Longitud);
                 }
-                envio.PrecioTotal = destinatarioEmpresa.TipoPrecio.PrecioTotal(envio.PesoTotal, kilometros);
+                if (remitentePersona != null)
+                    envio.PrecioTotal = remitentePersona.TipoPrecio.PrecioTotal(envio.PesoTotal, kilometros);
+                else
+                    envio.PrecioTotal = remitenteEmpresa.TipoPrecio.PrecioTotal(envio.PesoTotal, kilometros);
             }
             return envio;
         }
@@ -300,8 +336,8 @@ namespace BussinesLogic.LControllers
             erroresList.Add(validacionTexto.NullVacio(envioDT.RemitenteId.ToString(), "Destinatario"));
 
             //Existe
-            if (!repositories.GetPersonaRepository().ExistePersona(envioDT.RemitenteId) && !repositories.GetEmpresaRepository().ExisteEmpresa(envioDT.RemitenteId))
-                erroresList.Add("No existe un remitente con ese Documento/Rut");
+            if (!repositories.GetPersonaRepository().ExistePersona(envioDT.ClienteDestinatarioId) && !repositories.GetEmpresaRepository().ExisteEmpresa(envioDT.ClienteDestinatarioId))
+                erroresList.Add("No existe un destinatario con ese Documento/Rut");
 
             //Maximo caracteres
             erroresList.Add(validacionTexto.LargoMaximo(envioDT.RemitenteId.ToString(), 255, "Destinatario"));

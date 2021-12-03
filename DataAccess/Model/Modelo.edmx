@@ -58,6 +58,7 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NroTracking" Type="bigint" Nullable="false" />
           <Property Name="PrecioTotal" Type="float" Nullable="false" />
+          <Property Name="PesoTotal" Type="float" Nullable="false" />
           <Property Name="Estado" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IDFuncionario" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="IDRemitente" Type="bigint" Nullable="false" />
@@ -640,6 +641,7 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NroTracking" Type="Int64" Nullable="false" />
           <Property Name="PrecioTotal" Type="Double" Nullable="false" />
+          <Property Name="PesoTotal" Type="Double" Nullable="false" />
           <Property Name="Estado" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IDFuncionario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IDRemitente" Type="Int64" Nullable="false" />
@@ -1047,6 +1049,7 @@
                 <ScalarProperty Name="IDRemitente" ColumnName="IDRemitente" />
                 <ScalarProperty Name="IDFuncionario" ColumnName="IDFuncionario" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PesoTotal" ColumnName="PesoTotal" />
                 <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
                 <ScalarProperty Name="NroTracking" ColumnName="NroTracking" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

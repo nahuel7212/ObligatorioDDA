@@ -12,14 +12,14 @@ namespace CommonSolution.Validation
         public string ValorMinimo(long valor, long valorMinimo, string textoMensaje)
         {
             if (valor < valorMinimo)
-                return "Valor de " + textoMensaje + " no debe ser mayor que " + valorMinimo;
+                return "Valor de " + textoMensaje + " no debe ser menor que " + valorMinimo;
 
             return null;
         }
         public string ValorMaximo(long valor, long valorMaximo, string textoMensaje)
         {
             if (valor > valorMaximo)
-                return "Valor de " + textoMensaje + " no debe ser menor que " + valorMaximo;
+                return "Valor de " + textoMensaje + " no debe ser mayor que " + valorMaximo;
 
             return null;
         }
@@ -40,6 +40,5 @@ namespace CommonSolution.Validation
             return null;
         }
 
-        //AGREGAR UN TRY PARSE OUT
     }
 }

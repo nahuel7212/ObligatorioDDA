@@ -17,6 +17,7 @@ namespace DataAccess.Model
         public long ID { get; set; }
         public long NroTracking { get; set; }
         public double PrecioTotal { get; set; }
+        public double PesoTotal { get; set; }
         public string Estado { get; set; }
         public string IDFuncionario { get; set; }
         public long IDRemitente { get; set; }

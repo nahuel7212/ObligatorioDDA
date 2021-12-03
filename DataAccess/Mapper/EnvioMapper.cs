@@ -22,9 +22,10 @@ namespace DataAccess.Mapper
                 IDZona = envio.ZonaEnvio.IdZona,
                 IDCamion = envio.CamionEnvio.Matricula,
                 PrecioTotal = envio.PrecioTotal,
+                PesoTotal = envio.PesoTotal,
                 NroTracking = envio.NumeroTracking,
                 IDTipoPago = envio.TipoPago.Nombre,
-                Estado = EstadoToString(envio.Estado),
+                Estado = EstadoToString(envio.Estado)
             };
 
             if (mapId)

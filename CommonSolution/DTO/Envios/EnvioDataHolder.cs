@@ -32,7 +32,7 @@ namespace CommonSolution.DTO.Envios
         [StringLength(255, ErrorMessage = "Nombre de direccion no puede superar {1} caracteres")]
         public string NombreDireccion { get; set; }
         
-        [DisplayName("Precio total: ")]
+        [DisplayName("Precio total (en dolares): ")]
         public double PrecioTotal { get; set; }
 
         public string Latitud { get; set; }
