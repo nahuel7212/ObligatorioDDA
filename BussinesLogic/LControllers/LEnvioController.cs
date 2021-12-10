@@ -22,7 +22,7 @@ namespace BussinesLogic.LControllers
 {
     public class LEnvioController
     {
-        //Datos ubicacion DAK
+        //Datos ubicacion DAK (datos falsos momentaneos)
         static string latDAK = "0.2977208699081284"; //<----    Dato falsos de ubicacion de DAK
         static string lonDAK = "37.197632254726614"; //<----    Dato falsos de ubicacion de DAK
 
@@ -85,11 +85,9 @@ namespace BussinesLogic.LControllers
                 destinatarioEmpresa = repositories.GetEmpresaRepository().GetEmpresa(envioDT.ClienteDestinatarioId);
             }
 
-            if (remitentePersona == null && remitenteEmpresa == null)
-                return 0;
+            if (remitentePersona == null && remitenteEmpresa == null) return 0;
 
-            if (destinatarioPersona == null && destinatarioEmpresa == null)
-                return 0;
+            if (destinatarioPersona == null && destinatarioEmpresa == null) return 0;
 
             //Precio total
             if (destinatarioPersona != null)
